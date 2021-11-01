@@ -40,7 +40,7 @@ int main()
     
 
     printf("After  Flip:\n");
-    printf("%d_10 = %d_16", ans, flip);
+    printf("%d_10 = %d_16\n", ans, flip);
 }
 
 /*

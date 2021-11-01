@@ -12,14 +12,17 @@
 
 int split(int);
 int split_ans(int);
+int check(int);
 
 int main()
 {
     int a = 0, b = 0;
     printf("Please enter the first  number: ");
     scanf("%d", &a);
+    check(a);
     printf("Please enter the second number: ");
     scanf("%d", &b);
+    check(b);
     int c = a+b;
 
     printf("   "); split(a);
@@ -27,16 +30,25 @@ int main()
     printf("--------\n");
     split_ans(c);
     
+    return 0;
+}
+int check(int c)
+{
+    if(c <= 0)
+    {
+        printf("Error\n");
+    }
+    return 0;
 }
 int split_ans(int a)
 {
     if(a < 10)
     {
-        printf("        %d", a);
+        printf("       %d", a);
     }
     else if(a < 100)
     {
-        printf("      %d %d", a/10, a%10);
+        printf("     %d %d", a/10, a%10);
     }
     else if(a < 1000)
     {

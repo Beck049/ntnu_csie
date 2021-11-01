@@ -26,5 +26,5 @@ int main()
     printf("\"I\'ve  got it, it\'s right,\nJust change one instruction.\"\n\n");
     printf("It still wasn\'t perfect,\nAs year followed year,\nAnd strangers would comment,\n\"Is that guy still here?\"\n\n");
     printf("He died at the console,\nOf hunger and thirst.\nNext day he was buried,\nFace down, nine-edge first.\n\n");
-    printf("And the last bug in sight,\nAn ant passing by,\nSaluted his tombstone,\nAnd whispered, \"Nice try.\"");
+    printf("And the last bug in sight,\nAn ant passing by,\nSaluted his tombstone,\nAnd whispered, \"Nice try.\"\n");
 }

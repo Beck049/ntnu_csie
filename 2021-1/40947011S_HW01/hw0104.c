@@ -12,12 +12,12 @@
 
 int main()
 {
-    float v = 1, a = 2, t = 1;
-    float s = 0;
-    printf("v_0: "); scanf("%f", &v);
-    printf("a: ");   scanf("%f", &a);
-    printf("t: ");   scanf("%f", &t);
+    double v = 1, a = 2, t = 1;
+    double s = 0;
+    printf("v_0: "); scanf("%lf", &v);
+    printf("a: ");   scanf("%lf", &a);
+    printf("t: ");   scanf("%lf", &t);
 
     s = (v*t) + (a*t*t/2);
-    printf("--> s = %f", s);
+    printf("--> s = %.6lf\n", s);
 }
