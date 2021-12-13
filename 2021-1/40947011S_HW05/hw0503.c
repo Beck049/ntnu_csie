@@ -15,12 +15,15 @@
 int main()
 {
     int deg1, deg2;
+    char cc;
 // p1
     printf("Please enter the p1 degree: ");
     scanf("%d", &deg1);
 
+    scanf("%c", &cc);
+
     if(deg1 < 0)
-    {   printf("ERROR");    return 0;   }
+    {   printf("ERROR\n");    return 0;   }
 
     int* p1 = (int*)malloc((deg1+1)*sizeof(int)); 
     printf("please enter p1 coefficients: ");
@@ -29,6 +32,9 @@ int main()
         scanf("%d", &p1[i]);
     }
     // for(int i = deg1; i >= 0; i--){ printf("%d ", p1[i]);   }
+
+    
+
 // p2
     printf("\nPlease enter the p2 degree: ");
     scanf("%d", &deg2);

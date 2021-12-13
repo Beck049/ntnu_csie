@@ -1,12 +1,9 @@
 all:
-	gcc hw0501.c -o hw0501
-	gcc hw0502.c -o hw0502 -lm
-	gcc hw0503.c -o hw0503
-	gcc hw0504.c -o hw0504 -lm
-
-
-clean:
-	rm -rf hw0501
-	rm -rf hw0502
-	rm -rf hw0503
-	rm -rf hw0504
+	gcc -c data.c         -o data
+	gcc -c poly.c     	  -o poly
+	gcc -c chess.c        -o chess
+	gcc -c poker.c 		  -o poker
+	gcc hw0501.c poker    -o hw0501
+	gcc hw0502.c data     -o hw0502
+	gcc hw0503.c poly     -o hw0503
+	gcc hw0504.c chess    -o hw0504

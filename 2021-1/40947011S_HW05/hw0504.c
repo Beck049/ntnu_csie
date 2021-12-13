@@ -47,7 +47,7 @@ int main()
     // save the chess number , -1 to be blank
 
     set_map  (map, situation, chess);
-    print_ans(map);
+    // print_ans(map);
 
     print_map(map, situation);
 

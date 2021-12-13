@@ -7,18 +7,20 @@
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdint.h>	
+#include <stdint.h>
 #include <time.h>
 
 #include "poker.h"
 
-int8_t cards[13] = {51, 44, 32, 43, 33, 5, 25, 23, 12, 13, 6, 3, 1};
+ int8_t cards[13] = {30, 18, 10, 13, 22, 1, 43, 48, 49, 36, 46, 42, 34};
+// int8_t cards[13] = {41, 23, 25, 37, 51, 34, 42, 2, 16, 31, 50, 5, 43};
+// int8_t cards[13] = {41, 23, 25, 37, 51, 34, 42, 2, 16, 41, 50, 5, 43};
 
 int main()
 {
-    if(big_two_sort(cards) < 0)
+    if(big_two_sort_2(cards) < 0)
     {
-        printf("invalid input\n");
+        printf("Error\n");
         return 0;
     }
 

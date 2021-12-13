@@ -12,11 +12,14 @@
 
 #include "data.h"
 
-// const int32_t input[5] = {1, 3, 2, 4, 5}; 
+// const int32_t input[5] = {1, 3, 2, 4, 5};
 // size_t size = 5;
-
-const int32_t input[5] = {4, 4, 2, 2, 3}; 
-size_t size = 5;
+// const int32_t input[5] = {4, 4, 2, 2, 3};
+// size_t size = 5;
+const int32_t input[6] = {1, 4, 2, 4, 5, 2};
+size_t size = 6;
+// const int32_t input[6] = {1, 3, 2, 4, 5, 3};
+// size_t size = 6;
 
 int main()
 {
