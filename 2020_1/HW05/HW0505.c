@@ -64,18 +64,19 @@ int main()
     int *map = (int*)calloc(width*height*2,sizeof(int));
                             // use two digit to form a block ( status, opened? )
     init_game(map, width, height, mine);
- // print_ans(map, width, height);
+    print_ans(map, width, height);
 
     int row, col; // i, j //
     int over = 0;
     int opt = 0;
     while( over != 1)
     {
+    option:
         printf("Your option (1)Open (2)Flag :");
         scanf("%d", &opt);
         if(check_input(opt, 2, 1) == 1)
         {
-            break;
+            goto option;
         }
         
         switch(opt)
@@ -83,25 +84,26 @@ int main()
             case 1:
                 printf("Position to open (row, column) :");
                 scanf("%d %d", &row, &col);
-                if(check_input(col, width , 0) == 1)
+                if(check_input(col, width-1 , 0) == 1)
                 {
                     break;
                 }
-                if(check_input(row, height, 0) == 1)
+                if(check_input(row, height-1, 0) == 1)
                 {
                     break;
                 }
                 over = open(map, row, col, width, height);
+                print_map(map, width, height);
                 break;
 
             case 2:
                 printf("Position to flag / unflag (row, column) :");
                 scanf("%d %d", &row, &col);
-                if(check_input(col, width , 0) == 1)
+                if(check_input(col, width-1 , 0) == 1)
                 {
                     break;
                 }
-                if(check_input(row, height, 0) == 1)
+                if(check_input(row, height-1, 0) == 1)
                 {
                     break;
                 }
@@ -184,119 +186,199 @@ int open(int* map, int row, int col, int width, int height)
                 {
                     // printf("left up\n");
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
-                    // 9    
+                    // 9
+                        if(map[((row+1)*width + (col+1))*2] == 0 && map[((row+1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
                 else if(row == 0 && col == 9) // if 右上角
                 {
                     // printf("right up\n");
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                     // 7
+                        if(map[((row+1)*width + (col-1))*2] == 0 && map[((row+1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row+1, col-1, width, height); }
                         map[((row+1)*width + (col-1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                 }
                 else if(row == 9 && col == 0) // if 左下角
                 {
                     // printf("left down\n");
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 3
+                        if(map[((row-1)*width + (col+1))*2] == 0 && map[((row-1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row-1, col+1, width, height); }
                         map[((row-1)*width + (col+1))*2 +1] = 1;
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                 }
                 else if(row == 9 && col == 9) // if 右下角
                 {
                     // printf("right down\n");
                     // 1
+                        if(map[((row-1)*width + (col-1))*2] == 0 && map[((row-1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row-1, col-1, width, height); }
                         map[((row-1)*width + (col-1))*2 +1] = 1;
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                 }
                 else if(col == 0) // if 第一列
                 {
                     // printf("col = 0\n");
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 3
+                        if(map[((row-1)*width + (col+1))*2] == 0 && map[((row-1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row-1, col+1, width, height); }
                         map[((row-1)*width + (col+1))*2 +1] = 1;
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                     // 9
+                        if(map[((row+1)*width + (col+1))*2] == 0 && map[((row+1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
                 else if(row == 0) // if 第一排
                 {
                     // printf("row = 0\n");
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                     // 7
+                        if(map[((row+1)*width + (col-1))*2] == 0 && map[((row+1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row+1, col-1, width, height); }
                         map[((row+1)*width + (col-1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                     // 9
+                        if(map[((row+1)*width + (col+1))*2] == 0 && map[((row+1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
                 else if(row == 9) // if 最後一排
                 {
                     // printf("row = 9\n");
                     // 1
+                        if(map[((row-1)*width + (col-1))*2] == 0 && map[((row-1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row-1, col-1, width, height); }
                         map[((row-1)*width + (col-1))*2 +1] = 1;
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 3
+                        if(map[((row-1)*width + (col+1))*2] == 0 && map[((row-1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row-1, col+1, width, height); }
                         map[((row-1)*width + (col+1))*2 +1] = 1;
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                 }
                 else if(col == 9) // if 最後一列
                 {
                     // printf("col = 9\n");
                     // 1
+                        if(map[((row-1)*width + (col-1))*2] == 0 && map[((row-1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row-1, col-1, width, height); }
                         map[((row-1)*width + (col-1))*2 +1] = 1;
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                     // 7
+                        if(map[((row+1)*width + (col-1))*2] == 0 && map[((row+1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row+1, col-1, width, height); }
                         map[((row+1)*width + (col-1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                 }
                 else
                 {
                     // printf("other\n");
                     // 1
+                        if(map[((row-1)*width + (col-1))*2] == 0 && map[((row-1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row-1, col-1, width, height); }
                         map[((row-1)*width + (col-1))*2 +1] = 1;
                     // 2
+                        if(map[((row-1)*width + (col))*2] == 0 && map[((row-1)*width + col)*2 +1] == 0)
+                        { open(map, row-1, col, width, height); }
                         map[((row-1)*width + (col))*2 +1] = 1;
                     // 3
+                        if(map[((row-1)*width + (col+1))*2] == 0 && map[((row-1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row-1, col+1, width, height); }
                         map[((row-1)*width + (col+1))*2 +1] = 1;
                     // 4
+                        if(map[((row)*width + (col-1))*2] == 0 && map[(row*width + (col-1))*2 +1] == 0)
+                        { open(map, row, col-1, width, height); }
                         map[((row)*width + (col-1))*2 +1] = 1;
                     // 6
+                        if(map[((row)*width + (col+1))*2] == 0 && map[(row*width + (col+1))*2 +1] == 0)
+                        { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                     // 7
+                        if(map[((row+1)*width + (col-1))*2] == 0 && map[((row+1)*width + (col-1))*2 +1] == 0)
+                        { open(map, row+1, col-1, width, height); }
                         map[((row+1)*width + (col-1))*2 +1] = 1;
                     // 8
+                        if(map[((row+1)*width + (col))*2] == 0 && map[((row+1)*width + col)*2 +1] == 0)
+                        { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                     // 9
+                        if(map[((row+1)*width + (col+1))*2] == 0 && map[((row+1)*width + (col+1))*2 +1] == 0)
+                        { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
-////
+    ////
         }
         else // = value
         {
@@ -313,7 +395,7 @@ int open(int* map, int row, int col, int width, int height)
     }
 
 //  printf("%d %d = %d\n", row, col, map[(row*width + col)*2 +1]);
-    print_map(map, width, height);
+//  print_map(map, width, height);
     return 0;
 }
 int flag(int* map, int row, int col, int width, int height)
