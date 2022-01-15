@@ -46,6 +46,9 @@ int open (int*, int, int, int, int);// if is mine then lose
                                     // if blank then open the block around
 int flag (int*, int, int, int, int);
 
+void go_through(int*, int, int, int, int);// in case some space didn't open
+                                          // fix some bug for function "open"
+
 int check_mine(int*, int, int, int);// check if wins, else keep going
 
 void print_map(int*, int, int); // closed(0) , flaged(-1) , opened(1)
@@ -93,6 +96,7 @@ int main()
                     break;
                 }
                 over = open(map, row, col, width, height);
+                go_through(map, row, col, width, height);
                 print_map(map, width, height);
                 break;
 
@@ -117,8 +121,127 @@ int main()
         }
     }
 }
-
 ///////////////////////////////////////////////////////////////////////
+void go_through(int* map, int row, int col, int width, int height)
+{
+    for(int i = 0; i < width; i++)
+    {
+        for(int j = 0; j < height; j++)
+        {
+            if( map[(j*width + i)*2 +1] == 1 && map[(j*width + i)*2] == 0 )// opened && is blank
+            {
+                if(j == 0 && i == 0) // if 左上角
+                {
+                    // 9
+                    map[((j+1)*width + (i+1))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                }
+                else if(j == 0 && i == width-1) // if 右上角
+                {
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                    // 7
+                    map[((j+1)*width + (i-1))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                }
+                else if(j == height-1 && i == 0) // if 左下角
+                {
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 3
+                    map[((j-1)*width + (i+1))*2 +1] = 1;
+                }
+                else if(j == height-1 && i == width-1) // if 右下角
+                {
+                    // 1
+                    map[((j-1)*width + (i-1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                }
+                else if(i == 0) // if 第一列
+                {
+                    // 9
+                    map[((j+1)*width + (i+1))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 3
+                    map[((j-1)*width + (i+1))*2 +1] = 1;
+                }
+                else if(j == 0) // if 第一排
+                {
+                    // 9
+                    map[((j+1)*width + (i+1))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                    // 7
+                    map[((j+1)*width + (i-1))*2 +1] = 1;
+                }
+                else if(j == height-1) // if 最後一排
+                {
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 3
+                    map[((j-1)*width + (i+1))*2 +1] = 1;
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                    // 1
+                    map[((j-1)*width + (i-1))*2 +1] = 1;
+                }
+                else if(i == width-1) // if 最後一列
+                {
+                    // 1
+                    map[((j-1)*width + (i-1))*2 +1] = 1;
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                    // 7
+                    map[((j+1)*width + (i-1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                }
+                else
+                {
+                    // 9
+                    map[((j+1)*width + (i+1))*2 +1] = 1;
+                    // 8
+                    map[((j+1)*width + i)*2 +1] = 1;
+                    // 6
+                    map[(j*width + (i+1))*2 +1] = 1;
+                    // 2
+                    map[((j-1)*width + (i))*2 +1] = 1;
+                    // 3
+                    map[((j-1)*width + (i+1))*2 +1] = 1;
+                    // 4
+                    map[((j)*width + (i-1))*2 +1] = 1;
+                    // 7
+                    map[((j+1)*width + (i-1))*2 +1] = 1;
+                    // 1
+                    map[((j-1)*width + (i-1))*2 +1] = 1;
+                }
+            }
+        }
+    }
+}
+
 int check_mine(int* map, int width, int height, int mine)
 {
     int count = 0;
@@ -198,7 +321,7 @@ int open(int* map, int row, int col, int width, int height)
                         { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
-                else if(row == 0 && col == 9) // if 右上角
+                else if(row == 0 && col == width-1) // if 右上角
                 {
                     // printf("right up\n");
                     // 4
@@ -214,7 +337,7 @@ int open(int* map, int row, int col, int width, int height)
                         { open(map, row+1, col, width, height); }
                         map[((row+1)*width + (col))*2 +1] = 1;
                 }
-                else if(row == 9 && col == 0) // if 左下角
+                else if(row == height-1 && col == 0) // if 左下角
                 {
                     // printf("left down\n");
                     // 2
@@ -230,7 +353,7 @@ int open(int* map, int row, int col, int width, int height)
                         { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                 }
-                else if(row == 9 && col == 9) // if 右下角
+                else if(row == height-1 && col == width-1) // if 右下角
                 {
                     // printf("right down\n");
                     // 1
@@ -294,7 +417,7 @@ int open(int* map, int row, int col, int width, int height)
                         { open(map, row+1, col+1, width, height); }
                         map[((row+1)*width + (col+1))*2 +1] = 1;
                 }
-                else if(row == 9) // if 最後一排
+                else if(row == height-1) // if 最後一排
                 {
                     // printf("row = 9\n");
                     // 1
@@ -318,7 +441,7 @@ int open(int* map, int row, int col, int width, int height)
                         { open(map, row, col+1, width, height); }
                         map[((row)*width + (col+1))*2 +1] = 1;
                 }
-                else if(col == 9) // if 最後一列
+                else if(col == width-1) // if 最後一列
                 {
                     // printf("col = 9\n");
                     // 1
@@ -456,7 +579,7 @@ int set_number(int* map, int width, int height, int mine)
                     map[(j*width +i)*2] = count;
                     count = 0;
                 }
-                else if(j == 0 && i == 9) // if 右上角
+                else if(j == 0 && i == width-1) // if 右上角
                 {
                     // 4
                     if( map[((j)*width + (i-1))*2] == -1 )
@@ -477,7 +600,7 @@ int set_number(int* map, int width, int height, int mine)
                     map[(j*width +i)*2] = count;
                     count = 0;
                 }
-                else if(j == 9 && i == 0) // if 左下角
+                else if(j == height-1 && i == 0) // if 左下角
                 {
                     // 6
                     if( map[(j*width + (i+1))*2] == -1 )
@@ -498,7 +621,7 @@ int set_number(int* map, int width, int height, int mine)
                     map[(j*width +i)*2] = count;
                     count = 0;
                 }
-                else if(j == 9 && i == 9) // if 右下角
+                else if(j == height-1 && i == width-1) // if 右下角
                 {
                     // 1
                     if( map[((j-1)*width + (i-1))*2] == -1 )
@@ -581,7 +704,7 @@ int set_number(int* map, int width, int height, int mine)
                     map[(j*width +i)*2] = count;
                     count = 0;
                 }
-                else if(j == 9) // if 最後一排
+                else if(j == height-1) // if 最後一排
                 {
                     // 6
                     if( map[(j*width + (i+1))*2] == -1 ) 
@@ -612,7 +735,7 @@ int set_number(int* map, int width, int height, int mine)
                     map[(j*width +i)*2] = count;
                     count = 0;
                 }
-                else if(i == 9) // if 最後一列
+                else if(i == width-1) // if 最後一列
                 {
                     // 1
                     if( map[((j-1)*width + (i-1))*2] == -1 )
