@@ -19,5 +19,5 @@ int main()
     printf("t: ");   scanf("%lf", &t);
 
     s = (v*t) + (a*t*t/2);
-    printf("--> s = %.6lf\n", s);
+    printf("--> s = %.2lf\n", s);
 }
