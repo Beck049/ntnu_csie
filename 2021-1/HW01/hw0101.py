@@ -1,0 +1,11 @@
+print("THE LAST BUG\n");
+print("\"But you\'re out of your mind,\"");
+print("They said with a shrug.");
+print("\"The customer\'s happy;\nWhat\'s one little bug?\"\n");
+print("But he was determined.\nThe others went home.\nHe spread out the program,\nDeserted, alone.\n");
+print("The cleaning men came,\nThe whole room was cluttered\nWith memory-dumps, punch cards.\n\"I\'m close,\" he muttered.\n");
+print("The mumbling got louder,\nSimple deduction,");
+print("\"I\'ve  got it, it\'s right,\nJust change one instruction.\"\n");
+print("It still wasn\'t perfect,\nAs year followed year,\nAnd strangers would comment,\n\"Is that guy still here?\"\n");
+print("He died at the console,\nOf hunger and thirst.\nNext day he was buried,\nFace down, nine-edge first.\n");
+print("And the last bug in sight,\nAn ant passing by,\nSaluted his tombstone,\nAnd whispered, \"Nice try.\"");
