@@ -1,8 +1,8 @@
-x = 123;
-print("Please enter the first  number: ");
-a = int(input());
-print("Please enter the second number: ");
-b = int(input());
+x = 123
+print("Please enter the first  number: ")
+a = int(input())
+print("Please enter the second number: ")
+b = int(input())
 c = a+b
 
 def get_digits(num):
@@ -12,14 +12,14 @@ def get_digits(num):
         cnt = cnt+1
     return cnt
 
-len = 0;
+len = 0
 if(a >= b):
     len = get_digits(a)
 else:
     len = get_digits(b)
 
-print(len)
-print(get_digits(b))
+# print(len)
+# print(get_digits(b))
 
 def split(num, len):
     dig = get_digits(num)
