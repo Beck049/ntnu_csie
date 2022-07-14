@@ -10,9 +10,11 @@
 #include <stdint.h>	
 #include <time.h>
 
-int split(int);
-int split_ans(int);
+int get_max(int, ...);
+int get_digits(int);
 int check(int);
+void split(int, int);
+void split_ans(int, int);
 
 int main()
 {
@@ -25,74 +27,76 @@ int main()
     check(b);
     int c = a+b;
 
-    printf("   "); split(a);
-    printf("+) "); split(b);
-    printf("--------\n");
-    split_ans(c);
+    int len = 0;
+    len = get_max( 2, get_digits(a), get_digits(b) );
+
+    printf("   "); split(a, len);
+    printf("+) "); split(b, len);
+    for(int i = 1; i < len; ++i) {
+        printf("---");
+    }
+    printf("-\n ");
+    split_ans(c, len);
     
     return 0;
 }
-int check(int c)
-{
+void split_ans(int n, int len) {
+    if( get_digits(n) == len ) {
+        printf("   "); split(n, len);
+    }
+    else if( get_digits(n) == len+1 ) {
+        split(n, len+1);
+    }
+    else {
+        printf("ERROR\n");
+    }
+
+    return;
+}
+void split(int n, int len) {
+    for(int i = len; i > get_digits(n); --i) {
+        printf("  ");
+    }
+    int ten = 1;
+    for(int i = 1; i < get_digits(n); ++i) {
+        ten *= 10;
+    }
+    for(int i = get_digits(n); i > 0; --i) {
+        printf("%d ", n/ten);
+        n = n%ten;
+        ten /= 10;
+    }
+    printf("\n");
+
+    return;
+}
+int get_max(int n, ...) {
+    int max = 0;
+
+    va_list ptr;
+    va_start(ptr, n);
+
+    for(int i = 0; i < n; ++i) {
+        int tmp = va_arg(ptr, int);
+        max = tmp > max ? tmp : max;
+    }
+
+    va_end(ptr);
+
+    return max;
+}
+int get_digits(int num) {
+    int ret = 0;
+    while(num > 0) {
+        num /= 10;
+        ret++;
+    }
+    return ret;
+}
+int check(int c) {
     if(c <= 0)
     {
         printf("Error\n");
     }
     return 0;
-}
-int split_ans(int a)
-{
-    if(a < 10)
-    {
-        printf("       %d", a);
-    }
-    else if(a < 100)
-    {
-        printf("     %d %d", a/10, a%10);
-    }
-    else if(a < 1000)
-    {
-        int t1, t2, t3;
-        t1 = a/100;
-        a %= 100;
-        t2 = a/10;
-        t3 = a%10;
-        printf("   %d %d %d", t1, t2, t3);
-    }
-    else
-    {
-        int t1, t2, t3, t4;
-        t1 = a/1000;
-        a %= 1000;
-        t2 = a/100;
-        a %= 100;
-        t3 = a/10;
-        t4 = a%10;
-
-        printf(" %d %d %d %d", t1, t2, t3, t4);
-    }
-
-    printf("\n");
-}
-int split(int a)
-{
-    if(a < 10)
-    {
-        printf("    %d", a);
-    }
-    else if(a < 100)
-    {
-        printf("  %d %d", a/10, a%10);
-    }
-    else if(a < 1000)
-    {
-        int t1, t2, t3;
-        t1 = a/100;
-        a %= 100;
-        t2 = a/10;
-        t3 = a%10;
-        printf("%d %d %d", t1, t2, t3);
-    }
-
-    printf("\n");
 }
