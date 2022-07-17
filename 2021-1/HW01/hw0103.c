@@ -15,32 +15,40 @@ int main()
     int num = 0;
     printf("Please enter an unsigned 16-bits number: ");
     scanf("%d", &num);
-    
+
     printf("Before Flip:\n");
     printf("%d_10 = %x_16\n", num, num);
-
-    int flip = 0, ans = 0;
-    while(num != 0)
-    {
-        flip += num%16;
-        num = num/16;
-        flip *= 10;
-    }
-    flip /= 10;
-// num  = 4660
-// flip = 4321
-    int i = 0;
-    int flip1 = flip; // 4321
-    while(flip1 != 0)
-    {
-        ans += pow(16, i) * (flip1 % 10);
-        flip1 /= 10;
-        i++;
-    }
     
+    char hex[5] = {0};
+    int len = 0;
+    while(num!=0) {
+        hex[len] = num%16;
+        num /= 16;
+        len++;
+    }
+    printf("  %d\n", len);
+
+    num = 0;
+    for(int i = 0; i < len; ++i) {
+        num += hex[i] * pow(16, len-1-i);
+        printf("%d\n", num);
+    }
 
     printf("After  Flip:\n");
-    printf("%d_10 = %d_16\n", ans, flip);
+    printf("%d_10 = ", num);
+    int i = 0; 
+    while(hex[i] == 0) {
+        i++;
+    }
+    for(i; i < len; i++) {
+        if( 9 < hex[i] && hex[i] < 16 ) {
+            printf("%c", 87+hex[i]);
+        }
+        else {
+            printf("%d", hex[i]);
+        }
+    }
+    printf("_16\n");
 }
 
 /*
