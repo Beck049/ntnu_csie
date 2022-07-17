@@ -19,6 +19,8 @@ int leap(int);
 int weekdays(int, int, int);
 int trans_date(int, int, int, int);
 int check(int, int, int, int, int, int, int, int, int, int);
+int first_day(int);
+int last_day (int);
 
 int main()
 {
@@ -136,48 +138,12 @@ int main()
 // printf("date_value2 = %d\n", trans_date(y1, d1, m1, y1));
 
         //th : the first day contains ?? min
-        if(t1 <= 540)
-        {
-            th = 480;
-        }
-        else if(t1 <= 720)
-        {
-            th = 300 + (720 - t1);
-        }
-        else if(t1 <= 810)
-        {
-            th = 300;
-        }
-        else if(t1 <= 1110)
-        {
-            th = (1110 - t1);
-        }
-        else
-        {
-            th = 0;
-        }
+        th = first_day(t1);
+
 // printf("th : %d\n", th);
         //tt : the last day contains ?? min
-        if(t2 <= 540)
-        {
-            tt = 0;
-        }
-        else if(t2 <= 720)
-        {
-            tt = (t2 - 540);
-        }
-        else if(t2 <= 810)
-        {
-            tt = 300;
-        }
-        else if(t2 <= 1110)
-        {
-            tt = 300 + (t2 - 810);
-        }
-        else
-        {
-            tt = 480;
-        }   
+        tt = last_day(t2);
+        
 // printf("tt : %d\n", tt);
         // ignore if tt, th are weekend
         t = 0;
@@ -200,47 +166,11 @@ int main()
 
         int32_t th = 0, tt = 0, dur = 0;
         //th : the first day contains ?? min
-        if(t1 <= 540)
-        {
-            th = 480;
-        }
-        else if(t1 <= 720)
-        {
-            th = 300 + (720 - t1);
-        }
-        else if(t1 <= 810)
-        {
-            th = 300;
-        }
-        else if(t1 <= 1110)
-        {
-            th = (1110 - t1);
-        }
-        else
-        {
-            th = 0;
-        }
+        th = first_day(t1);
+
         //tt : the last day contains ?? min
-        if(t2 <= 540)
-        {
-            tt = 0;
-        }
-        else if(t2 <= 720)
-        {
-            tt = (t2 - 540);
-        }
-        else if(t2 <= 810)
-        {
-            tt = 300;
-        }
-        else if(t2 <= 1110)
-        {
-            tt = 300 + (t2 - 810);
-        }
-        else
-        {
-            tt = 480;
-        }   
+        tt = last_day(t2);
+
         // ignore if tt, th are weekend
         if(weekdays(d1, m1, y1) != 6 && weekdays(d1, m1, y1) != 0)
         {
@@ -275,7 +205,50 @@ int main()
     return 0;
 }
 
-
+int first_day(int t1) {
+    if(t1 <= 540)
+    {
+        return 480;
+    }
+    else if(t1 <= 720)
+    {
+        return 300 + (720 - t1);
+    }
+    else if(t1 <= 810)
+    {
+        return 300;
+    }
+    else if(t1 <= 1110)
+    {
+        return (1110 - t1);
+    }
+    else
+    {
+        return 0;
+    }
+}
+int last_day(int t2) {
+    if(t2 <= 540)
+    {
+        return 0;
+    }
+    else if(t2 <= 720)
+    {
+        return (t2 - 540);
+    }
+    else if(t2 <= 810)
+    {
+        return 300;
+    }
+    else if(t2 <= 1110)
+    {
+        return 300 + (t2 - 810);
+    }
+    else
+    {
+        return 480;
+    }   
+}
 int leap(int year)
 {
     if( year%400 == 0 || ( year%4 == 0 && year%1000 != 0 ) )
