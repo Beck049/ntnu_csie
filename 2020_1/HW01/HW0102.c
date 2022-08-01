@@ -25,7 +25,7 @@ int main()
         count++; // how many digits
     }
 
-    if(count == 5)
+    if(count >= 5)
     {
         printf("Too many digit.\n");
     }
