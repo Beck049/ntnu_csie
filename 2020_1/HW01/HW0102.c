@@ -17,7 +17,7 @@ int main()
     printf("Please enter a 5-digit integer: ");
     scanf("%d",&number);
 
-    for(int i = 0; i < 5; i++)
+    while(number!=0)
     {
         sum += number % 10;
         number = number / 10;
